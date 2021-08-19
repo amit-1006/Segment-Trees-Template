@@ -26,6 +26,7 @@ void build(ll node,ll ss,ll se){
     ll mid=(ss+se)/2;
     build(node*2+1,ss,mid);
     build(node*2+2,mid+1,se);
+    seg[node]=seg[node*2+1]+seg[node*2+2];
 }
 
 //call as (1,0,n-1,l,r)
@@ -35,13 +36,13 @@ ll queryRange(ll node,ll ss,ll se,ll l,ll r){
     }
 
     if(ss>r || se<l) return 0;
-    ll mid=(l+r)/2;
+    ll mid=(ss+se)/2;
     ll p1=queryRange(node*2+1,ss,mid,l,r);
     ll p2=queryRange(node*2+2,mid+1,se,l,r);
     return p1+p2;
 }
 
-// call as (1,0,n01,ind,val)
+// call as (1,0,n-1,ind,val)
 void updatePoint(ll node,ll ss,ll se,ll ind,ll val){
     if(se==se){
         seg[node]+=val;
